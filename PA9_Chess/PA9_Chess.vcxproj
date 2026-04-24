@@ -22,7 +22,29 @@
     <Text Include="README.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bishop.cpp" />
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="King.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="Queen.cpp" />
+    <ClCompile Include="Rook.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bishop.hpp" />
+    <ClInclude Include="Board.hpp" />
+    <ClInclude Include="GameManager.hpp" />
+    <ClInclude Include="King.hpp" />
+    <ClInclude Include="Knight.hpp" />
+    <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="Pawn.hpp" />
+    <ClInclude Include="Piece.hpp" />
+    <ClInclude Include="Queen.hpp" />
+    <ClInclude Include="Rook.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
