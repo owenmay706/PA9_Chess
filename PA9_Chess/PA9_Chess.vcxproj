@@ -46,7 +46,7 @@
     <ClInclude Include="Rook.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="..\..\..\..\..\Downloads\Roboto\RobotoRegular.ttf" />
+    <Font Include="RobotoRegular.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
