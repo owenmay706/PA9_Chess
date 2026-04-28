@@ -25,6 +25,11 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="Queen.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Rook.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bishop.hpp" />
@@ -32,10 +37,15 @@
     <ClInclude Include="GameManager.hpp" />
     <ClInclude Include="King.hpp" />
     <ClInclude Include="Knight.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Pawn.hpp" />
     <ClInclude Include="Piece.hpp" />
     <ClInclude Include="Queen.hpp" />
+    <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Rook.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="RobotoRegular.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
@@ -130,7 +140,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;sfml-audio-s-d.lib;sfml-network-s-d.lib;opengl32.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;sfml-audio-s-d.lib;sfml-network-s-d.lib;harfbuzz.lib;freetype.lib;opengl32.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -148,7 +158,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;sfml-audio-s.lib;sfml-network-s.lib;opengl32.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;sfml-audio-s.lib;sfml-network-s.lib;harfbuzz.lib;freetype.lib;opengl32.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
