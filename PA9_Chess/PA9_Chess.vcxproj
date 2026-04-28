@@ -31,6 +31,7 @@
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Queen.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Rook.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +44,7 @@
     <ClInclude Include="Pawn.hpp" />
     <ClInclude Include="Piece.hpp" />
     <ClInclude Include="Queen.hpp" />
+    <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Rook.hpp" />
   </ItemGroup>
   <ItemGroup>
