@@ -25,11 +25,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Pawn.cpp" />
-    <ClCompile Include="Piece.cpp" />
-    <ClCompile Include="Queen.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Rook.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bishop.hpp" />
