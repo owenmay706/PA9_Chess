@@ -39,33 +39,3 @@ sf::Vector2f ChessBoard::getSquareCenter(int row, int col) const
 
     return sf::Vector2f(centerX, centerY);
 }
-main.cpp
-#include "Board.hpp"
-#include "SFML/Graphics.hpp"
-
-// window should be 1920, 1080
-// each square 100 pixels
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode({ static_cast<unsigned int>(BOARD_SIZE * SQUARE_SIZE),
-        static_cast<unsigned int>(BOARD_SIZE * SQUARE_SIZE) }), "SFML Chess");
-
-    ChessBoard board;
-
-    while (window.isOpen())
-    {
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
-                window.close();
-            }
-        }
-
-        window.clear();
-        board.draw(window);
-        window.display();
-    }
-
-    return 0;
-}
