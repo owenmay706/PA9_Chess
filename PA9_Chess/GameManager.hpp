@@ -1,5 +1,5 @@
 //this file will contain the class gamemanager, this class creates the menu, and will call other functions to run the game.
-#include <SFML/Graphics.hpp>
+#include "Menu.hpp"
 
 class GameManager {
 private:
@@ -12,6 +12,19 @@ public:
 	//constructor, will contain more once the other constructors are complete
 	GameManager() : window(sf::VideoMode({ 1920, 1080 }), "Chess"), turn(0) {}
 	
-	
+	void StartGame() {
+
+		sf::RenderWindow window(sf::VideoMode({ 1920u, 1080u }), "Chess");
+		Menu menu;
+
+		MenuResult result = menu.handleInput(window);
+
+		if (result == MenuResult::Play) {
+			// start the game
+		}
+		else {
+			window.close();
+		}
+	}
 
 };

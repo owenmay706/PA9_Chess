@@ -1,20 +1,10 @@
 #include "SFML/Graphics.hpp"
-#include "Menu.hpp"
+#include "GameManager.hpp"
 
 
 
 int main(void) {
+    GameManager game;
+    game.StartGame();
     
-
-    sf::RenderWindow window(sf::VideoMode({ 1920u, 1080u }), "Chess");
-    Menu menu;
-
-    MenuResult result = menu.handleInput(window);
-
-    if (result == MenuResult::Play) {
-        // start the game
-    }
-    else {
-        window.close();
-    }
 }
