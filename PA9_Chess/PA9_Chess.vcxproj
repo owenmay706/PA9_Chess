@@ -26,6 +26,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bishop.hpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="Queen.hpp" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Rook.hpp" />
+    <ClInclude Include="Test.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="RobotoRegular.ttf" />
