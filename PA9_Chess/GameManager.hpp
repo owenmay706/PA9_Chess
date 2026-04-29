@@ -8,7 +8,7 @@
 #include "Queen.hpp"
 #include "King.hpp"
 #include "Bishop.hpp"
-#include "knight.hpp"
+#include "knight.hpp"   
 
 class GameManager {
 private:
@@ -64,6 +64,8 @@ public:
                 if (const auto* keyEvent = event->getIf<sf::Event::KeyPressed>()) {
                     if (keyEvent->code == sf::Keyboard::Key::Escape && gameOver)
                         window.close();
+                    if (keyEvent->code == sf::Keyboard::Key::R && gameOver)
+                        restartGame();
                 }
 
                 if (!gameOver) {
@@ -89,8 +91,6 @@ public:
                 gameBoard[r][c] = nullptr;
                 delete gameBoard[r][c];
             }
-              
-        
 
         // Pawns
         for (int c = 0; c < 8; c++) {
@@ -123,6 +123,23 @@ public:
         // Kings
         gameBoard[0][4] = new King(1, 0, 4);
         gameBoard[7][4] = new King(0, 7, 4);
+    }
+
+    void restartGame() {
+        // Clean up existing pieces
+        for (int r = 0; r < 8; r++)
+            for (int c = 0; c < 8; c++) {
+                delete gameBoard[r][c];
+                gameBoard[r][c] = nullptr;
+            }
+
+        gameOver = false;
+        winnerText = "";
+        selectedPiece = nullptr;
+        validMoveCount = 0;
+        turn = 0;
+
+        initBoard();
     }
     
     void drawBoard(ChessBoard& board, Renderer& render) {
@@ -268,7 +285,7 @@ public:
 
         // Prompt text
         sf::Text prompt(font);
-        prompt.setString("Press Escape to Exit");
+        prompt.setString("Press R to Restart  |  Press Escape to Exit");
         prompt.setCharacterSize(40);
         prompt.setFillColor(sf::Color(180, 180, 180));
         sf::FloatRect pb = prompt.getLocalBounds();
