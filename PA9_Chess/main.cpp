@@ -1,4 +1,5 @@
 #include "Renderer.hpp"
+#include "Test.hpp"
 
 #include "SFML/Graphics.hpp"
 #include <iostream> // This library is included to see debug output!
@@ -19,6 +20,9 @@ int main(void) {
         std::cout << "Oh no, at least one texture couldn't be loaded!" << endl;
         return -1;
     }
+
+    // Call the function for 
+    Test::runAllTests();
 
     // Continue to dipslay a separate game window until the user exits the screen!
     while (window.isOpen())
