@@ -11,66 +11,15 @@ public:
         return (team == 0) ? 'N' : 'n';
     }
 
-    int getMoves(int movesR[], int movesC[]) override
-    {
+    int getMoves(int movesR[], int movesC[], Piece* board[8][8]) override {
         int count = 0;
-
-        if (inBounds(row + 2, col + 1))
-        {
-            movesR[count] = row + 2;
-            movesC[count] = col + 1;
-            count++;
+        int jumps[8][2] = { {2,1},{2,-1},{-2,1},{-2,-1},{1,2},{1,-2},{-1,2},{-1,-2} };
+        for (auto& j : jumps) {
+            int r = row + j[0], c = col + j[1];
+            if (inBounds(r, c) && (board[r][c] == nullptr || board[r][c]->getTeam() != team)) {
+                movesR[count] = r; movesC[count] = c; count++;
+            }
         }
-
-        if (inBounds(row + 2, col - 1))
-        {
-            movesR[count] = row + 2;
-            movesC[count] = col - 1;
-            count++;
-        }
-
-        if (inBounds(row - 2, col + 1))
-        {
-            movesR[count] = row - 2;
-            movesC[count] = col + 1;
-            count++;
-        }
-
-        if (inBounds(row - 2, col - 1))
-        {
-            movesR[count] = row - 2;
-            movesC[count] = col - 1;
-            count++;
-        }
-
-        if (inBounds(row + 1, col + 2))
-        {
-            movesR[count] = row + 1;
-            movesC[count] = col + 2;
-            count++;
-        }
-
-        if (inBounds(row + 1, col - 2))
-        {
-            movesR[count] = row + 1;
-            movesC[count] = col - 2;
-            count++;
-        }
-
-        if (inBounds(row - 1, col + 2))
-        {
-            movesR[count] = row - 1;
-            movesC[count] = col + 2;
-            count++;
-        }
-
-        if (inBounds(row - 1, col - 2))
-        {
-            movesR[count] = row - 1;
-            movesC[count] = col - 2;
-            count++;
-        }
-
         return count;
     }
 };

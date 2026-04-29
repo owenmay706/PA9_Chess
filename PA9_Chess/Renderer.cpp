@@ -105,7 +105,9 @@ void Renderer::drawChessPiece(sf::RenderWindow& window, const std::string& piece
 
 	// Position the piece on the grid, depending on the row and column values passed in,
 	// and adjust to the size of the chess board tiles!
-	sprite.setPosition(sf::Vector2f(column * TILE_SIZE, row * TILE_SIZE));
+	float offsetX = (1920 - 8 * TILE_SIZE) / 2.0f +16.0f;
+	float offsetY = (1080 - 8 * TILE_SIZE) / 2.0f -8.0f;
+	sprite.setPosition(sf::Vector2f(offsetX + column * TILE_SIZE, offsetY + row * TILE_SIZE));
 
 	window.draw(sprite);
 }

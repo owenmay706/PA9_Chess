@@ -38,5 +38,5 @@ public:
     virtual char getSymbol() const = 0;
 
     // Stores moves into arrays, returns number of moves
-    virtual int getMoves(int movesR[], int movesC[]) = 0;
+    virtual int getMoves(int movesR[], int movesC[], Piece* board[8][8]) = 0;
 };

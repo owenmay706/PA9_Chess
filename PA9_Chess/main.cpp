@@ -1,45 +1,6 @@
-#include "Renderer.hpp"
-#include "Test.hpp"
-
-#include "SFML/Graphics.hpp"
-#include <iostream> // This library is included to see debug output!
-#include <algorithm> // This library is included for using the std::min keyword!
-
-using std::endl;
-using std::cout;
-using std::min;
+#include "GameManager.hpp"
 
 int main(void) {
-    sf::RenderWindow window(sf::VideoMode({ 800, 800 }), "SFML works!");
-    
-    // Check that each chess piece texture was loaded properly (if not, print
-    // an error message and end the program with a -1 return value)!
-    Renderer renderer;
-    if (!renderer.loadTextures())
-    {
-        std::cout << "Oh no, at least one texture couldn't be loaded!" << endl;
-        return -1;
-    }
-
-    // Call the function for 
-    Test::runAllTests();
-
-    // Continue to dipslay a separate game window until the user exits the screen!
-    while (window.isOpen())
-    {
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-                window.close();
-        }
-
-        // Clear existing images in the window before drawing the new frame!
-        window.clear();
-
-        // Render each chess piece in the game window!
-        renderer.renderAllPieces(window);
-        
-        // Display the updated frame!
-        window.display();
-    }
+	GameManager game;
+	game.StartGame();
 }
