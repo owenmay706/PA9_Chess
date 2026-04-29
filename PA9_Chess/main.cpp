@@ -8,6 +8,7 @@ using std::endl;
 using std::cout;
 using std::min;
 
+
 int main(void) {
     sf::RenderWindow window(sf::VideoMode({ 800, 800 }), "SFML works!");
     
