@@ -13,4 +13,7 @@ horizontally or vertically, bishops move diagonally, knights move in an L-shape 
 and pawns move forward one square while capturing diagonally. The goal of the game is to defeat the
 opponent by capturing their king.
 
+Note: The game ends when a player physically captures the opponent's king. Also, this game does not currently
+use specialized rules like promotion, castling, or en passant :)
+
 Link to video:
