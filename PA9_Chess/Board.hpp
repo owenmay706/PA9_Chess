@@ -5,6 +5,7 @@
 // Constants
 const int BOARD_SIZE = 8;
 const float SQUARE_SIZE = 100.0f;
+const int TILE_SIZE = 100;
 
 class ChessBoard
 {

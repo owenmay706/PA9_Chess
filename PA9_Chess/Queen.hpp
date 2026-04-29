@@ -11,74 +11,42 @@ public:
         return (team == 0) ? 'Q' : 'q';
     }
 
-    int getMoves(int movesR[], int movesC[]) override
-    {
+    int getMoves(int movesR[], int movesC[], Piece* board[8][8]) override {
         int count = 0;
-
-        // up
-        for (int r = row - 1; r >= 0; r--)
-        {
-            movesR[count] = r;
-            movesC[count] = col;
-            count++;
+        // Rook directions
+        for (int r = row - 1; r >= 0; r--) {
+            movesR[count] = r; movesC[count] = col; count++;
+            if (board[r][col] != nullptr) break;
         }
-
-        // down
-        for (int r = row + 1; r < 8; r++)
-        {
-            movesR[count] = r;
-            movesC[count] = col;
-            count++;
+        for (int r = row + 1; r < 8; r++) {
+            movesR[count] = r; movesC[count] = col; count++;
+            if (board[r][col] != nullptr) break;
         }
-
-        // left
-        for (int c = col - 1; c >= 0; c--)
-        {
-            movesR[count] = row;
-            movesC[count] = c;
-            count++;
+        for (int c = col - 1; c >= 0; c--) {
+            movesR[count] = row; movesC[count] = c; count++;
+            if (board[row][c] != nullptr) break;
         }
-
-        // right
-        for (int c = col + 1; c < 8; c++)
-        {
-            movesR[count] = row;
-            movesC[count] = c;
-            count++;
+        for (int c = col + 1; c < 8; c++) {
+            movesR[count] = row; movesC[count] = c; count++;
+            if (board[row][c] != nullptr) break;
         }
-
-        // up-left
-        for (int r = row - 1, c = col - 1; inBounds(r, c); r--, c--)
-        {
-            movesR[count] = r;
-            movesC[count] = c;
-            count++;
+        // Bishop directions
+        for (int r = row - 1, c = col - 1; inBounds(r, c); r--, c--) {
+            movesR[count] = r; movesC[count] = c; count++;
+            if (board[r][c] != nullptr) break;
         }
-
-        // up-right
-        for (int r = row - 1, c = col + 1; inBounds(r, c); r--, c++)
-        {
-            movesR[count] = r;
-            movesC[count] = c;
-            count++;
+        for (int r = row - 1, c = col + 1; inBounds(r, c); r--, c++) {
+            movesR[count] = r; movesC[count] = c; count++;
+            if (board[r][c] != nullptr) break;
         }
-
-        // down-left
-        for (int r = row + 1, c = col - 1; inBounds(r, c); r++, c--)
-        {
-            movesR[count] = r;
-            movesC[count] = c;
-            count++;
+        for (int r = row + 1, c = col - 1; inBounds(r, c); r++, c--) {
+            movesR[count] = r; movesC[count] = c; count++;
+            if (board[r][c] != nullptr) break;
         }
-
-        // down-right
-        for (int r = row + 1, c = col + 1; inBounds(r, c); r++, c++)
-        {
-            movesR[count] = r;
-            movesC[count] = c;
-            count++;
+        for (int r = row + 1, c = col + 1; inBounds(r, c); r++, c++) {
+            movesR[count] = r; movesC[count] = c; count++;
+            if (board[r][c] != nullptr) break;
         }
-
         return count;
     }
 };
