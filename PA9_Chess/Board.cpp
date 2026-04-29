@@ -2,12 +2,18 @@
 
 ChessBoard::ChessBoard()
 {
+    float offsetX = (1920 - BOARD_SIZE * SQUARE_SIZE) / 2.0f;
+    float offsetY = (1080 - BOARD_SIZE * SQUARE_SIZE) / 2.0f;
+
     for (int row = 0; row < BOARD_SIZE; ++row)
     {
         for (int col = 0; col < BOARD_SIZE; ++col)
         {
             squares[row][col].setSize(sf::Vector2f(SQUARE_SIZE, SQUARE_SIZE));
-            squares[row][col].setPosition(sf::Vector2f(static_cast<float>(col) * SQUARE_SIZE, static_cast<float>(row) * SQUARE_SIZE));
+            squares[row][col].setPosition(sf::Vector2f(
+                offsetX + col * SQUARE_SIZE,
+                offsetY + row * SQUARE_SIZE));
+
 
             if ((row + col) % 2 == 0)
             {
