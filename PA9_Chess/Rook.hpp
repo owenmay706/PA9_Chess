@@ -11,42 +11,28 @@ public:
         return (team == 0) ? 'R' : 'r';
     }
 
-    int getMoves(int movesR[], int movesC[]) override
-    {
+    int getMoves(int movesR[], int movesC[], Piece* board[8][8]) override {
         int count = 0;
-
         // up
-        for (int r = row - 1; r >= 0; r--)
-        {
-            movesR[count] = r;
-            movesC[count] = col;
-            count++;
+        for (int r = row - 1; r >= 0; r--) {
+            movesR[count] = r; movesC[count] = col; count++;
+            if (board[r][col] != nullptr) break;
         }
-
         // down
-        for (int r = row + 1; r < 8; r++)
-        {
-            movesR[count] = r;
-            movesC[count] = col;
-            count++;
+        for (int r = row + 1; r < 8; r++) {
+            movesR[count] = r; movesC[count] = col; count++;
+            if (board[r][col] != nullptr) break;
         }
-
         // left
-        for (int c = col - 1; c >= 0; c--)
-        {
-            movesR[count] = row;
-            movesC[count] = c;
-            count++;
+        for (int c = col - 1; c >= 0; c--) {
+            movesR[count] = row; movesC[count] = c; count++;
+            if (board[row][c] != nullptr) break;
         }
-
         // right
-        for (int c = col + 1; c < 8; c++)
-        {
-            movesR[count] = row;
-            movesC[count] = c;
-            count++;
+        for (int c = col + 1; c < 8; c++) {
+            movesR[count] = row; movesC[count] = c; count++;
+            if (board[row][c] != nullptr) break;
         }
-
         return count;
     }
 };
