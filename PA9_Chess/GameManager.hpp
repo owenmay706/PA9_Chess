@@ -19,6 +19,10 @@ private:
 
     bool gameOver = false;
 
+    sf::Font font;
+
+    std::string winnerText = "";
+
     Piece* selectedPiece = nullptr;
     int validMoveRows[30];
     int validMoveCols[30];
@@ -48,12 +52,19 @@ public:
         ChessBoard board;
         Renderer render;
         render.loadTextures();
+        if (!font.openFromFile("RobotoRegular.ttf"))
+            std::cout << "Failed to load font!" << std::endl;
         initBoard();
 
         while (window.isOpen()) {
             while (auto event = window.pollEvent()) {
                 if (event->is<sf::Event::Closed>())
                     window.close();
+
+                if (const auto* keyEvent = event->getIf<sf::Event::KeyPressed>()) {
+                    if (keyEvent->code == sf::Keyboard::Key::Escape && gameOver)
+                        window.close();
+                }
 
                 if (!gameOver) {
                     if (const auto* mouseEvent = event->getIf<sf::Event::MouseButtonPressed>()) {
@@ -62,18 +73,24 @@ public:
                     }
                 }
             }
-            drawBoard(board, render);
+
+            if (gameOver)
+                drawWinnerScreen();
+            else
+                drawBoard(board, render);
         }
-        
-
-
     }
+
 
     void initBoard() {
         // Clear board first
         for (int r = 0; r < 8; r++)
-            for (int c = 0; c < 8; c++)
+            for (int c = 0; c < 8; c++) {
                 gameBoard[r][c] = nullptr;
+                delete gameBoard[r][c];
+            }
+              
+        
 
         // Pawns
         for (int c = 0; c < 8; c++) {
@@ -109,11 +126,32 @@ public:
     }
     
     void drawBoard(ChessBoard& board, Renderer& render) {
-        window.clear(); 
-        board.draw(window);          // draws the tiles
-        renderPieces(render);        // draws pieces from array
+        window.clear();
+        board.draw(window);
+        renderPieces(render);
+        drawTurnText();
         window.display();
     }
+
+    void drawTurnText() {
+        sf::Text turnText(font);
+        turnText.setString(turn == 0 ? "White's Turn" : "Black's Turn");
+        turnText.setCharacterSize(40);
+        turnText.setFillColor(sf::Color::White);
+
+        // Center it horizontally, place it just above the board
+        float offsetX = (1920 - 8 * TILE_SIZE) / 2.0f;
+        float offsetY = (1080 - 8 * TILE_SIZE) / 2.0f;
+
+        sf::FloatRect textBounds = turnText.getLocalBounds();
+        float textX = offsetX + (8 * TILE_SIZE) / 2.0f - textBounds.size.x / 2.0f;
+        float textY = offsetY - 60.0f; // 60 pixels above the board
+
+        turnText.setPosition(sf::Vector2f(textX, textY));
+        window.draw(turnText);
+    }
+
+
 
     void renderPieces(Renderer& render) {
         for (int r = 0; r < 8; r++) {
@@ -141,8 +179,11 @@ public:
 
     void handleClick(int mouseX, int mouseY) {
         // Convert pixel position to board grid position
-        int col = mouseX / TILE_SIZE;
-        int row = mouseY / TILE_SIZE;
+        float offsetX = (1920 - 8 * TILE_SIZE) / 2.0f;
+        float offsetY = (1080 - 8 * TILE_SIZE) / 2.0f;
+
+        int col = (mouseX - offsetX) / TILE_SIZE;
+        int row = (mouseY - offsetY) / TILE_SIZE;
 
         if (!inBounds(row, col)) return;
 
@@ -208,10 +249,37 @@ public:
 
     void endGame(int winner) {
         gameOver = true;
-        std::string winnerStr = (winner == 0) ? "White" : "Black";
-        std::cout << winnerStr << " wins!" << std::endl;
+        winnerText = (winner == 0) ? "White Wins!" : "Black Wins!";
+    }
 
+    void drawWinnerScreen() {
+        window.clear(sf::Color::Black);
 
+        // Winner text
+        sf::Text winner(font);
+        winner.setString(winnerText);
+        winner.setCharacterSize(80);
+        winner.setFillColor(sf::Color::White);
+        sf::FloatRect wb = winner.getLocalBounds();
+        winner.setPosition(sf::Vector2f(
+            1920 / 2.0f - wb.size.x / 2.0f,
+            1080 / 2.0f - wb.size.y / 2.0f - 40.0f
+        ));
+
+        // Prompt text
+        sf::Text prompt(font);
+        prompt.setString("Press Escape to Exit");
+        prompt.setCharacterSize(40);
+        prompt.setFillColor(sf::Color(180, 180, 180));
+        sf::FloatRect pb = prompt.getLocalBounds();
+        prompt.setPosition(sf::Vector2f(
+            1920 / 2.0f - pb.size.x / 2.0f,
+            1080 / 2.0f + 40.0f
+        ));
+
+        window.draw(winner);
+        window.draw(prompt);
+        window.display();
     }
 
     bool inBounds(int row, int col) {
