@@ -289,7 +289,7 @@ public:
 
         // Prompt text
         sf::Text prompt(font);
-        prompt.setString("Press Escape to Exit");
+        prompt.setString("Press R to Restart  |  Press Escape to Exit");
         prompt.setCharacterSize(40);
         prompt.setFillColor(sf::Color(180, 180, 180));
         sf::FloatRect pb = prompt.getLocalBounds();
