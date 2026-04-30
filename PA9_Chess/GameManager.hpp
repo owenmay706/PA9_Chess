@@ -126,21 +126,21 @@ public:
     }
 
     void restartGame() {
-        // Clean up existing pieces
-        for (int r = 0; r < 8; r++)
-            for (int c = 0; c < 8; c++) {
-                delete gameBoard[r][c];
-                gameBoard[r][c] = nullptr;
-            }
+    // Clean up existing pieces
+    for (int r = 0; r < 8; r++)
+        for (int c = 0; c < 8; c++) {
+            delete gameBoard[r][c];
+            gameBoard[r][c] = nullptr;
+        }
 
-        gameOver = false;
-        winnerText = "";
-        selectedPiece = nullptr;
-        validMoveCount = 0;
-        turn = 0;
+    gameOver = false;
+    winnerText = "";
+    selectedPiece = nullptr;
+    validMoveCount = 0;
+    turn = 0;
 
-        initBoard();
-    }
+    initBoard();
+}
     
     void drawBoard(ChessBoard& board, Renderer& render) {
         window.clear();
@@ -215,9 +215,10 @@ public:
         else {
             // Second click — try to move to this square
             if (isValidMove(row, col)) {
-                movePiece(selectedPiece, row, col);
-                turn = 1 - turn; // swap turn
+                if (movePiece(selectedPiece, row, col))
+                    turn = 1 - turn; // only swap if move actually happened
             }
+
             // Deselect regardless
             selectedPiece = nullptr;
             validMoveCount = 0;
@@ -232,36 +233,39 @@ public:
         return false;
     }
 
-    void movePiece(Piece* piece, int toRow, int toCol) {
+    bool movePiece(Piece* piece, int toRow, int toCol) {
         int fromRow = piece->getRow();
         int fromCol = piece->getCol();
+
+        // Prevent capturing your own piece
+        if (gameBoard[toRow][toCol] != nullptr &&
+            gameBoard[toRow][toCol]->getTeam() == piece->getTeam()) {
+            return false; // move didn't happen
+        }
 
         // Delete captured piece if present, also checking for king capture
         if (gameBoard[toRow][toCol] != nullptr) {
             char sym = gameBoard[toRow][toCol]->getSymbol();
             if (sym == 'K' || sym == 'k') {
-                int winner = piece->getTeam(); // whoever moved wins
+                int winner = piece->getTeam();
                 delete gameBoard[toRow][toCol];
                 gameBoard[toRow][toCol] = piece;
                 gameBoard[fromRow][fromCol] = nullptr;
                 piece->setPosition(toRow, toCol);
                 endGame(winner);
-                return;
+                return true;
             }
             delete gameBoard[toRow][toCol];
         }
 
-        // Move in array
         gameBoard[toRow][toCol] = piece;
         gameBoard[fromRow][fromCol] = nullptr;
-
-        // Update piece's internal position
         piece->setPosition(toRow, toCol);
 
-        // Mark pawn as moved
-        if (piece->getSymbol() == 'P' || piece->getSymbol() == 'p') {
+        if (piece->getSymbol() == 'P' || piece->getSymbol() == 'p')
             static_cast<Pawn*>(piece)->setMoved();
-        }
+
+        return true; // move succeeded
     }
 
     void endGame(int winner) {
