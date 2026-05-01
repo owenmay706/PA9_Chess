@@ -193,7 +193,6 @@ public:
             for (int c = 0; c < 8; c++)
                 if (gameBoard[r][c])
                 {
-                    // Flip display coordinates for the joining (Black) player
                     int displayRow = flipped ? (7 - r) : r;
                     int displayCol = flipped ? (7 - c) : c;
                     render.drawChessPiece(window, getPieceName(gameBoard[r][c]), displayRow, displayCol);
@@ -250,6 +249,15 @@ public:
         }
         else
         {
+            // If the player clicks one of their own pieces, reselect it instead
+            Piece* target = gameBoard[row][col];
+            if (target && target->getTeam() == turn)
+            {
+                selectedPiece = target;
+                validMoveCount = target->getMoves(validMoveRows, validMoveCols, gameBoard);
+                return;
+            }
+
             if (isValidMove(row, col))
             {
                 // Capture from/to BEFORE movePiece changes the piece's position
@@ -261,7 +269,7 @@ public:
 
                 if (multiplayerMode)
                 {
-                    network.sendMove(fr, fc, row, col);   // transmit the move
+                    network.sendMove(fr, fc, row, col);
                     myTurn = false;
                 }
             }
@@ -332,7 +340,7 @@ public:
 
         gameOver = false;
         turn = 0;
-        myTurn = !flipped; 
+        myTurn = !flipped;   // host (White) goes first after restart too
         selectedPiece = nullptr;
         validMoveCount = 0;
 
